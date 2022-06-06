@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+void helper(int index, vector<int>&arr, vector<vector<int>>&ans,vector<int>&curr)
+{
+    ans.push_back(curr);   
+    for(int i=index;i<arr.size();i++)
+    {
+        if(i>index && arr[i]==arr[i-1])    
+        {
+            continue;
+        }
+        curr.push_back(arr[i]);         
+        helper(i+1,arr,ans,curr);
+        curr.pop_back();             
+    }
+}
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    // Write your code here.
+    vector<vector<int>>ans;        
+    vector<int>curr;          
+    sort(arr.begin(),arr.end());      
+    helper(0,arr,ans,curr);
+    
+    return ans;
+}
