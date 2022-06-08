@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+bool safe(vector<int> &board, int row, int col, int n){
+    int dcol = col;
+    int drow = row;
+    
+    while(row >=0 && col >=0){
+        if(board[row][col] == 1){
+            return false;
+        }
+        row--;
+        col--;
+    }
+    col = dcol;
+    row = drow;
+    while(col >=0){
+        if(board[row][col] == 1){
+            return false;
+        }
+        col--;
+    }
+    col = dcol;
+    row = drow;
+    while(row<n && col >=0){
+        if(board[row][col] == 1){
+            return false;
+        }
+        row++;
+        col--;
+    }
+    
+    return true;
+}
+
+void sol(vector<vector<int>> &ans, int col, vector<int> &board, int n){
+    if(n == col){
+        ans.push_back(board);
+        return;
+    }
+    
+    for(int row = 0; row<n; row++){
+        if(safe(board, row, col, n)){
+            board[row][col] = 1;
+            sol(ans, col+1, board, n);
+            board[row][col] = 0;
+        }
+    }
+}
+
+vector<vector<int>> solveNQueens(int n) {
+    // Write your code here.
+    vector<vector<int>> ans;
+    vector<int> board(n);
+    arr[n];
+    for(int i=0; i<n; i++){
+        arr[i] = 0;
+    }
+    for (int i = 0; i < n; i++) {
+        board[i].push_back(arr);
+     }
+    sol(ans, 0, board, n);
+    return ans;
+}
