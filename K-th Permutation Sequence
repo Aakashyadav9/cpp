@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+void solve(string &str, int idx, vector<string> &temp){
+    if(idx == str.size()){
+        temp.push_back(str);
+        return;
+    }
+    for(int i=idx; i<str.size(); i++){
+        swap(str[i], str[idx]);
+        solve(str,idx+1,temp);
+        swap(str[i], str[idx]);
+    }
+}
+
+string kthPermutation(int n, int k) {
+    // Write your code here.
+    string str;
+    vector<string> temp;
+    for(int i=1; i<= n; i++){
+        str.push_back(i+'0');
+    }
+    solve(str, 0, temp);
+    sort(temp.begin(), temp.end());
+    auto it = temp.begin() + (k - 1);
+    return *it;
+}
