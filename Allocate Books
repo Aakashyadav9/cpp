@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+bool allocate(int n, int m, vector<int> time, int mid){
+    int day =1;
+    long long page = 0;
+    for(int i=0; i<m; i++){
+   
+        if((page + time[i]) <= mid){
+            page += time[i];
+        }
+        else{
+            day++;
+            if(day>n || time[i] > mid){
+                return false;
+            }
+            page=time[i];
+        }
+    }
+  
+    return true;
+}
+long long ayushGivesNinjatest(int n, int m, vector<int> time) 
+{	
+	// Write your code here.
+    long long low = 0;
+    long long hi;
+    long long s = 0;
+    for(int i=0; i<time.size(); i++){
+        s += time[i];
+    }
+    hi = s;
+    long long res = -1;
+    while(low <= hi){
+        int mid = (low+hi)/2;
+        if(allocate(n, m, time, mid)){
+            res = mid;
+            hi =mid-1;
+        }
+        else{
+            low = mid+1;
+        }
+    }
+    return res;
+}
