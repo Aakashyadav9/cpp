@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+bool canplace(vector<int> pos , int n ,  int c, int dist){
+    int co = pos[0];
+    int cnt = 1;
+    for(int i=0; i<n; i++){
+        if((pos[i]-co) >= dist){
+            cnt++;
+            co = pos[i];
+        }
+        if(cnt == c){
+            return true;
+        }
+    }
+    return false;
+}
+
+int chessTournament(vector<int> pos , int n ,  int c){
+	// Write your code here
+    sort(pos.begin(), pos.end());
+    int low = 1;
+    int res=1;
+    int high = pos[pos.size()-1] -pos[0];
+    
+    while(low <= high){
+        int mid = (low+high)/2;
+        if(canplace(pos,n,c,mid)){
+            res = mid;
+            low = mid+1;
+        }
+        else{
+            high = mid-1;
+        }
+    }
+    return res;
+    
+}
